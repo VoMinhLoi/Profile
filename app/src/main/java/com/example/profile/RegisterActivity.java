@@ -28,11 +28,15 @@ public class RegisterActivity extends AppCompatActivity {
                 confirmPassETVar = (EditText) findViewById(R.id.confirmPassET);
                 String confirmPassVar = confirmPassETVar.getText().toString();
 //                passVar == confirmPassVar
-
-                if (passVar.equals(confirmPassVar)) {
-                    Register(nameVar, passVar);
-                } else
-                    System.out.println("Wrong Pass!!");
+                if(nameVar.equals("") || passVar.equals("")){
+                    System.out.println("Empty field!!!");
+                }
+                else{
+                    if (passVar.equals(confirmPassVar)) {
+                        Register(nameVar, passVar);
+                    } else
+                        System.out.println("Password does not match!!");
+                }
             }
         });
 

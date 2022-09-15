@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class LoginActivity extends AppCompatActivity {
     Button loginBTVar, registerBTVar;
     EditText userNameETVar, passETVar;
+    public static final String NAME = "name";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -22,22 +23,26 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String userNameVar = userNameETVar.getText().toString();
                 String passVar = passETVar.getText().toString();
-                Intent intent = getIntent();
-                String useNameRG = intent.getStringExtra(RegisterActivity.NAME);
-                String passRG = intent.getStringExtra(RegisterActivity.PASS);
-                if(userNameVar.equals(useNameRG)){
-                    System.out.println(userNameVar);
-                    System.out.println(useNameRG);
-                    if(passVar.equals(passRG)){
-                        System.out.println(passVar);
-                        System.out.println(passRG);
-                        Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intentMain);
-
-                    }
+                Intent intentLogIn1 = getIntent();
+                String useNameRG = intentLogIn1.getStringExtra(RegisterActivity.NAME);
+                String passRG = intentLogIn1.getStringExtra(RegisterActivity.PASS);
+                if(passVar.equals("")){
+                    System.out.println("Hãy nhập mật khẩu!!!");
                 }
                 else {
-                    System.out.println("Sai tài khoản hoặc mật khẩu");
+                    if(userNameVar.equals(useNameRG)){
+                        if(passVar.equals(passRG)){
+                            Intent intentLogIn2 = new Intent(LoginActivity.this, MainActivity.class);
+                            intentLogIn2.putExtra(NAME, userNameVar);
+                            startActivity(intentLogIn2);
+                        }
+                        else {
+                            System.out.println("Sai mật khẩu!!!");
+                        }
+
+                    }
+                    else
+                        System.out.println("Sai tài khoản!!!");
                 }
             }
         });
@@ -49,8 +54,5 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-    public void setDataByExtra(){
-
     }
 }
